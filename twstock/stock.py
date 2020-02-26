@@ -3,6 +3,8 @@
 import datetime
 import urllib.parse
 from collections import namedtuple
+from time import 
+
 
 from twstock.proxy import get_proxies
 
@@ -57,6 +59,7 @@ class TWSEFetcher(BaseFetcher):
         for retry_i in range(retry):
             r = requests.get(self.REPORT_URL, params=params,
                              proxies=get_proxies())
+            sleep(2.5)##sleep two second
             try:
                 data = r.json()
             except JSONDecodeError:
@@ -104,6 +107,7 @@ class TPEXFetcher(BaseFetcher):
         for retry_i in range(retry):
             r = requests.get(self.REPORT_URL, params=params,
                              proxies=get_proxies())
+            sleep(2.5)
             try:
                 data = r.json()
             except JSONDecodeError:
@@ -167,6 +171,7 @@ class Stock(analytics.Analytics):
         return self.data
 
     def fetch_from(self, year: int, month: int):
+        print("modify with delay 2.5sec")
         """Fetch data from year, month to current year month data"""
         self.raw_data = []
         self.data = []
